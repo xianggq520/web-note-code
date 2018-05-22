@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .button {
+
+            position: relative;
+
+            appearance: none;
+
+            background: #f72359;
+
+            padding: 1em 2em;
+
+            border: none;
+
+            color: white;
+
+            font-size: 1.2em;
+
+            cursor: pointer;
+
+            outline: none;
+
+            overflow: hidden;
+
+            border-radius: 100px;
+
+
+
+
+
+
+
+
+
+        }
+
+        span {
+
+            position: relative;
+
+        }
+
+        .button::before {
+
+            --size: 0;
+
+
+
+            content: '';
+
+            position: absolute;
+
+            left: var(--x);
+
+            top: var(--y);
+
+            width: var(--size);
+
+            height: var(--size);
+
+            background: radial-gradient(circle closest-side, #4405f7, transparent);
+
+            transform: translate(-50%, -50%);
+
+            transition: width .2s ease, height .2s ease;
+
+        }
+
+
+
+        .button:hover::before {
+
+            --size: 400px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <button class="button">
+        <span>click me</span>
+    </button>
+    <script>
+        document.querySelector('.button').onmousemove = (e) => {
+            if(e.target.tagName != 'BUTTON') return;
+            const x = e.pageX - e.target.offsetLeft
+
+            const y = e.pageY - e.target.offsetTop
+
+            e.target.style.setProperty('--x', `${x}px`)
+
+            e.target.style.setProperty('--y', `${y}px`)
+
+        }
+    </script>
+</body>
+
+</html>

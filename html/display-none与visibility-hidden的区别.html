@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>display: none;与visibility: hidden;的区别</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .wrap1 {
+            border: 1px solid red;
+        }
+
+        .wrap2 {
+            border: 1px solid yellowgreen;
+        }
+
+        .visibility-hidden {
+            visibility: hidden;
+        }
+
+        .visibility-visible {
+            visibility: visible;
+        }
+
+        .display-none {
+            display: none;
+        }
+        .display-block {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        联系：它们都能让元素不可见
+
+        区别：
+        
+        display:none;会让元素完全从渲染树中消失，渲染的时候不占据任何空间；visibility: hidden;不会让元素从渲染树消失，渲染师元素继续占据空间，只是内容不可见
+        display: none;是非继承属性，子孙节点消失由于元素从渲染树消失造成，通过修改子孙节点属性无法显示；
+        visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，通过设置visibility: visible;可以让子孙节点显式
+        修改常规流中元素的display通常会造成文档重排。修改visibility属性只会造成本元素的重绘。
+        读屏器不会读取display: none;元素内容；会读取visibility: hidden;元素内容
+    </p>
+
+
+    <div class="wrap1">
+        <p class="visibility-hidden">visibility: hidden;是继承属性，子孙节点消失由于继承了hidden，<span class="visibility-visible">通过设置visibility: visible;可以让子孙节点显式</span></p>
+    </div>
+
+    <div class="wrap2">
+        <p class="display-none">display: none;是非继承属性，子孙节点消失由于元素从渲染树消失造成，<span class="display-block">通过修改子孙节点属性无法显示；</span></p>
+    </div>
+</body>
+</html>
