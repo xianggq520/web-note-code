@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>box-sizing和ie怪异盒子模型</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    /* 支持 Firefox, Chrome, Safari, Opera, IE8+ 和老的Android浏览器 */
+    .example {
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    </style>
+</head>
+<body>
+    <p>
+        1.css盒子模型有三种 content-box标准盒子模型、padding-box、border-box怪异盒子模型
+    </p>
+    <p>
+        2.默认的css盒子模型为content-box
+    </p>
+    <p>
+        3.ie浏览器ie7以下的版本，采用border-box怪异盒子模型，ie7采用content-box标准盒子模型
+    </p>
+    <p>
+        4.可以采用box-sizing属性来约束浏览采用哪种盒子模型，box-sizing兼容 Firefox, Chrome, Safari, Opera, IE8+ 和老的Android浏览器 
+    </p>
+    <p>
+        5.ie浏览器ie7及以下的版本均不兼容box-sizing，但是ie7采用content-box标准盒子模型
+    </p>
+</body>
+</html>
