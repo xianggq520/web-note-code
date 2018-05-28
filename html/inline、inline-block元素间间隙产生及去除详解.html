@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://demo.doyoe.com/css/inline-block-space/ -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>inline-block元素间间隙产生及去除详解</title>
+<meta name="description" content="inline-block元素间间隙产生及去除详解">
+<meta name="keywords" content="inline-block, inline-block间隙">
+<meta name="author" content="doyoe(飘零雾雨), dooyoe@gmail.com, www.doyoe.com">
+<meta name="robots" content="all">
+<!--[if lte IE 8]>
+<script src="http://developer.doyoe.com/dui/lib/js/html5.js"></script>
+<![endif]-->
+<link href="./inline-block元素间间隙产生及去除详解_files/reset-grids-comm-min.css" rel="stylesheet">
+<link href="./inline-block元素间间隙产生及去除详解_files/layout.css" rel="stylesheet">
+<link href="./inline-block元素间间隙产生及去除详解_files/demo.css" rel="stylesheet">
+<style type="text/css">#yddContainer{display:block;font-family:Microsoft YaHei;position:relative;width:100%;height:100%;top:-4px;left:-4px;font-size:12px;border:1px solid}#yddTop{display:block;height:22px}#yddTopBorderlr{display:block;position:static;height:17px;padding:2px 28px;line-height:17px;font-size:12px;color:#5079bb;font-weight:bold;border-style:none solid;border-width:1px}#yddTopBorderlr .ydd-sp{position:absolute;top:2px;height:0;overflow:hidden}.ydd-icon{left:5px;width:17px;padding:0px 0px 0px 0px;padding-top:17px;background-position:-16px -44px}.ydd-close{right:5px;width:16px;padding-top:16px;background-position:left -44px}#yddKeyTitle{float:left;text-decoration:none}#yddMiddle{display:block;margin-bottom:10px}.ydd-tabs{display:block;margin:5px 0;padding:0 5px;height:18px;border-bottom:1px solid}.ydd-tab{display:block;float:left;height:18px;margin:0 5px -1px 0;padding:0 4px;line-height:18px;border:1px solid;border-bottom:none}.ydd-trans-container{display:block;line-height:160%}.ydd-trans-container a{text-decoration:none;}#yddBottom{position:absolute;bottom:0;left:0;width:100%;height:22px;line-height:22px;overflow:hidden;background-position:left -22px}.ydd-padding010{padding:0 10px}#yddWrapper{color:#252525;z-index:99999;background:url(chrome-extension://bgllbpdmpeenjbeiigkhccehncomjfbk/ab20.png);}#yddContainer{background:#fff;border-color:#4b7598}#yddTopBorderlr{border-color:#f0f8fc}#yddWrapper .ydd-sp{background-image:url(chrome-extension://bgllbpdmpeenjbeiigkhccehncomjfbk/ydd-sprite.png)}#yddWrapper a,#yddWrapper a:hover,#yddWrapper a:visited{color:#50799b}#yddWrapper .ydd-tabs{color:#959595}.ydd-tabs,.ydd-tab{background:#fff;border-color:#d5e7f3}#yddBottom{color:#363636}#yddWrapper{min-width:250px;max-width:400px;margin-top: 15px;}</style></head>
+<body class="doc">
+<nav id="nav">
+	<a href="http://blog.doyoe.com/" title="CSS探索之旅 - 飘零雾雨的庄园">CSS探索之旅</a> »
+	<a href="http://demo.doyoe.com/" title="Web前端实验室">Web前端实验室</a> »
+	inline-block元素间间隙产生及去除详解
+</nav>
+
+<article id="content">
+	<h1 class="title">inline-block元素间间隙产生及去除详解:</h1>
+	<p class="browser">浏览器参照基准：Firefox, Chrome, Safari, Opera, IE</p>
+	<p class="tips">* inline-block 即内联块，可以水平排版</p>
+	<section id="panel1" class="panel">
+		<dl class="view" id="inline-to-inline-block">
+			<dt><span>Figure 1:</span>定义一个inline level元素为内联块 <a href="http://demo.doyoe.com/css/inline-block-space/inline-to-inline-block.htm">DEMO</a></dt>
+			<dd><code><xmp><div id="demo">
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+</div>
+#demo span{
+	display:inline-block;
+}</xmp></code></dd>
+		</dl>
+		<p class="tips">* 对于inline level的元素，所有主流浏览器都支持直接设置<a href="http://css.doyoe.com/properties/layout/display.htm" class="external" target="_blank">display</a> 的value值为inline-block来将其定义为内联块；</p>
+
+		<dl class="view" id="block-to-inline-block">
+			<dt><span>Figure 2:</span>定义一个block level元素为内联块 <a href="http://demo.doyoe.com/css/inline-block-space/block-to-inline-block.htm">DEMO</a></dt>
+			<dd><code><xmp><div id="demo">
+	<div>我是一个div</div>
+	<div>我是一个div</div>
+	<div>我是一个div</div>
+	<div>我是一个div</div>
+</div>
+#demo div{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}</xmp></code></dd>
+		</dl>
+		<p class="tips">* why? 细心的你可能发现定义inline level和block level为inline-block(内联块)代码是有所区别的。OK, 很遗憾的告诉你，IE7及以下浏览器对inline-block的支持并不完全，它们只支持用display:inline-block去定义一个inline level的元素为内联块；</p>
+		<p class="tips">曲线救国：由于IE7及以下浏览器支持直接将inline level元素设置为内联块，所以我们可以变通实现，先将block level元素设置为inline，然后再去触发该元素的hasLayout，使其拥有和inline-block相似的特性；</p>
+
+		<dl class="view" id="inline-block-space">
+			<dt><span>Figure 3:</span>间隙 <a href="http://demo.doyoe.com/css/inline-block-space/inline-block-space.htm">DEMO</a></dt>
+			<dd><code><xmp><div id="demo">
+	<div>我是一个div</div>
+	<div>我是一个div</div>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<div>我是一个div</div>
+	<span>我是一个span</span>
+</div>
+#demo span,#demo div{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+}</xmp></code></dd>
+		</dl>
+		<p class="tips">* inline-block元素间出现间隙：从<a href="http://demo.doyoe.com/css/inline-block-space/#inline-to-inline-block">Figure <sup>#1</sup></a>的<a href="http://demo.doyoe.com/css/inline-block-space/inline-to-inline-block.htm">DEMO</a>，我们发现每个span之间都出现了几像素的空白间隙；从<a href="http://demo.doyoe.com/css/inline-block-space/#block-to-inline-block">Figure <sup>#2</sup></a>的<a href="http://demo.doyoe.com/css/inline-block-space/block-to-inline-block.htm">DEMO</a>，我们发现除IE7及以下浏览器外，所有浏览器表现和Figure 1一致；再来看本例<a href="http://demo.doyoe.com/css/inline-block-space/#inline-block-space">Figure <sup>#3</sup></a>的<a href="http://demo.doyoe.com/css/inline-block-space/inline-block-space.htm">DEMO</a>，我们似乎可以找到间隙出现的规律；</p>
+		<p class="tips">* IE7及以下浏览器很坑爹：block level元素转换为inline-block，在IE7及以下浏览器下元素间不出现间隙；inline level元素转换为inline-block，在IE7及以下浏览器下元素间出现间隙；紧跟block level转换为inline-block的元素之后有个inline level转换为inline-block的元素，在IE7及以下浏览器下这俩元素间不出现间隙；紧跟inline level转换为inline-block的元素之后有个block level转换为inline-block的元素，在IE7及以下浏览器下这俩元素间出现间隙；其它浏览器任何情况下均出现间隙；</p>
+		<p class="tips">* 注意：如果你要处理这个间隙，还得注意被转换为inline-block的元素，原本是inline level还是block level；</p>
+
+		<dl class="view" id="space-come-from">
+			<dt><span>Figure 4:</span>间隙由来 <a href="http://demo.doyoe.com/css/inline-block-space/space-come-from.htm">DEMO</a></dt>
+			<dd><code><xmp><div id="demo">
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+</div></xmp></code></dd>
+		</dl>
+		<p class="tips">* 在本例中，我们不对span做任何处理，你会发现span元素间也存在间隙，你有否怀疑这是由于换行导致？OK，我们来验证下这个疑问；</p>
+
+		<dl class="view" id="line-break-space">
+			<dt><span>Figure 5:</span>换行导致间隙？ <a href="http://demo.doyoe.com/css/inline-block-space/line-break-space.htm">DEMO</a></dt>
+			<dd><code><xmp><div id="demo">
+	<span>我是一个span</span><span>我是一个span</span><span>我是一个span</span><span>我是一个span</span>
+</div></xmp></code></dd>
+		</dl>
+		<p class="tips">* 在本例中，我们只是将上例<a href="http://demo.doyoe.com/css/inline-block-space/#space-come-from">Figure <sup>#4</sup></a>中span写到同一行，运行本例<a href="http://demo.doyoe.com/css/inline-block-space/#line-break-space">Figure <sup>#5</sup></a>的<a href="http://demo.doyoe.com/css/inline-block-space/line-break-space.htm">DEMO</a>，间隙没有了；所以说间隙是由换行或者回车导致的，应该无大问题；</p>
+
+		<dl class="view" id="fix-inline-block-space">
+			<dt><span>Figure 6:</span>干掉间隙方案1: 约定书写方式 <a href="http://demo.doyoe.com/css/inline-block-space/fix-inline-block-space.htm">DEMO</a></dt>
+			<dd><code><xmp><div id="demo">
+	<div>我是一个div</div><div>我是一个div</div><span>我是一个span</span><span>我是一个span</span><div>我是一个div</div><span>我是一个span</span>
+</div></xmp></code></dd>
+		</dl>
+		<p class="tips">* 通过<a href="http://demo.doyoe.com/css/inline-block-space/#line-break-space">Figure <sup>#5</sup></a>及其<a href="http://demo.doyoe.com/css/inline-block-space/line-break-space.htm">DEMO</a>，我们知道：将html写在一行，不动css，这种方案是最直接的解决方案，但却也是最不靠谱的方案，存在很多不可控因素。很多场景会让你崩溃：前后端协同；版本更迭；他人接手；自己忘了...，太多一不小心都可能让这个方案失效。尤其对于有代码洁癖的前端来说，这种方式简直让人难以忍受，你觉得呢？</p>
+
+		<dl class="view" id="fix-inline-block-space2">
+			<dt><span>Figure 7:</span>干掉间隙方案2: font-size:0 <a href="http://demo.doyoe.com/css/inline-block-space/fix-inline-block-space2.htm">DEMO</a></dt>
+			<dd><code><xmp><div id="demo">
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+	<span>我是一个span</span>
+</div>
+#demo{
+	font-size:0;
+}
+#demo span{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	font-size:14px;
+}</xmp></code></dd>
+		</dl>
+		<p class="tips">* 奇怪？为什么font-size会对间隙有影响。如果你看到<a href="http://demo.doyoe.com/css/inline-block-space/#line-break-space">Figure <sup>#5</sup></a>及其<a href="http://demo.doyoe.com/css/inline-block-space/line-break-space.htm">DEMO</a>，会知道space是由换行或回车所产生空白符所致，既然是字符当然无法摆脱<a href="http://css.doyoe.com/properties/font/font.htm" class="external" target="_blank">font</a>的控制（space是固定值？space值会否因font-size不同而变化？看<a href="http://demo.doyoe.com/css/inline-block-space/space-auto-size.htm">DEMO</a>），当然你也可以试验下诸如：<a href="http://css.doyoe.com/properties/font/font-family.htm" class="external" target="_blank">font-family</a>; <a href="http://css.doyoe.com/properties/font/font-weight.htm" class="external" target="_blank">font-weight</a>等font系属性的影响；</p>
+		<p class="tips">* 该方案存在的问题，font-size要被overwrite一次；IE7及以下浏览器依然会残留1px的间隙；较老版本的webkit对小于12px的font-size设置不友好: chrome还可以设置-webkit-text-size-adjust:none用以支持超小字体，Safari即使设置了也无力；</p>
+		<p class="tips">* IE8及以上浏览器, Firefox, Opera, Safari6, Chrome18均可直接使用此方案；</p>
+
+		<dl class="view" id="fix-inline-block-space3">
+			<dt><span>Figure 8:</span>全IE兼容方案1: font-size + 负margin <a href="http://demo.doyoe.com/css/inline-block-space/fix-inline-block-space3.htm">DEMO</a></dt>
+			<dd><code><xmp>#demo{
+	*padding-left:1px;
+	font-size:0;
+}
+#demo span{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	*margin-left:-1px;
+	font-size:14px;
+}</xmp></code></dd>
+		</dl>
+		<p class="tips">* 本例在<a href="http://demo.doyoe.com/css/inline-block-space/#fix-inline-block-space2">Figure <sup>#7</sup></a>的方案上进行升级，针对IE7及以下浏览器hack，让每个inline-block的span元素向左负margin一个像素，借此修复IE7及以下浏览器下顽固的残留1px间隙问题。由于span向左margin了-1px，同时需将父元素#demo向左padding 1px，用于抵消位置偏移。</p>
+		<p class="tips">* 此方案会有一个隐患，你想到了吗？回头看<a href="http://demo.doyoe.com/css/inline-block-space/#inline-block-space">Figure <sup>#3</sup></a>及其<a href="http://demo.doyoe.com/css/inline-block-space/inline-block-space.htm">DEMO</a>，所以如果你想要代码通用且健壮，该方案不应该成为最佳实践。</p>
+		<p class="tips">* IE, Firefox, Opera, Safari6, Chrome18均可直接使用此方案；</p>
+
+		<dl class="view" id="fix-inline-block-space4">
+			<dt><span>Figure 9:</span>全IE兼容方案2: font-size + word-spacing <a href="http://demo.doyoe.com/css/inline-block-space/fix-inline-block-space4.htm">DEMO</a></dt>
+			<dd><code><xmp>#demo{
+	*word-spacing:-1px;
+	font-size:0;
+}
+#demo span{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	word-spacing:normal;
+	font-size:14px;
+}</xmp></code></dd>
+		</dl>
+		<p class="tips">* 本例仍然在<a href="http://demo.doyoe.com/css/inline-block-space/#fix-inline-block-space2">Figure <sup>#7</sup></a>的方案上进行升级，我们知道inline-block之间的间隙是因插入了空白换行或回车符所致，你可能很快就能想起有个<a href="http://css.doyoe.com/properties/text/word-spacing.htm" class="external" target="_blank">word-spacing</a>属性是用来处理单词间空白符的。针对IE7及以下浏览器hack，定义word-spacing为-1px，即可修复IE7及以下浏览器下顽固的残留1px间隙问题。</p>
+		<p class="tips">* 由于<a href="http://css.doyoe.com/properties/text/word-spacing.htm" class="external" target="_blank">word-spacing</a>属性是用来处理单词间空白符的，所以一般如果子元素内只是纯粹的文字排版的话，子元素可以不将word-spacing的值还原成normal，除非子元素内部也有空白符或其它复杂情况；为了代码更健壮，建议直接将子元素还原成normal而不用去care各种场景。这里原本只需要for IE7-进行设置，但因为word-spacing的默认值就是normal，所以可以不必写成hack，因为该值不影响其它任何浏览器。</p>
+		<p class="tips">* IE, Firefox, Opera, Safari6, Chrome18均可直接使用此方案；</p>
+
+		<dl class="view" id="fix-inline-block-space5">
+			<dt><span>Figure 10:</span>全浏览器兼容方案 <a href="http://demo.doyoe.com/css/inline-block-space/fix-inline-block-space5.htm">DEMO</a></dt>
+			<dd><code><xmp>#demo{
+	font-size:0;
+	[;font-size:12px;];
+	*font-size:0;
+	font-family:arial;
+	[;letter-spacing:-3px;];
+	*letter-spacing:normal;
+	*word-spacing:-1px;
+}
+#demo span{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	font-size:14px;
+	letter-spacing:normal;
+	word-spacing:normal;
+}</xmp></code></dd>
+		</dl>
+		<p class="tips">* 现在我们似乎只有较低版本的Chrome和Safari没有兼容了。还记得前面说它们对小于12px的字号支持无力，并且<a href="http://css.doyoe.com/properties/font/font-family.htm" class="external" target="_blank">font-family</a>指定字体不同，间隙也会随之而变；同时为了避免受到上下文font设置影响，在局部我们将之设置为12px的arial，为什么选择arial？主要是为了兼容尽可能多的平台，通常windows和Mac OS都会有arial字体，选择Arial字体后间隙将变成3px，对于子元素你仍然可以重置为想要的字体；这样无论外部环境如何变化，这个间隙将始终是3px （<a href="http://www.iyunlu.com/view/css-xhtml/58.html" class="external" target="_blank">字体与间隙对应表</a>，感谢勤劳的 一丝 同学整理这个表），不必因环境不同再去做调整。</p>
+		<p class="tips">* OK, 我们先将Chrome和Safari的字号设置为12px，这是一个hack <code>[;font-size:12px;];</code>，详情可参考<a href="http://css.doyoe.com/hack/properties.htm" class="external" target="_blank">属性级Hack</a>，因为IE7及以下浏览器也能识别该hack，所以用 <code>*font-size:0</code> 重置一次；在<a href="http://demo.doyoe.com/css/inline-block-space/#fix-inline-block-space4">Figure <sup>#9</sup></a>的时候测试了<a href="http://css.doyoe.com/properties/text/word-spacing.htm" class="external" target="_blank">word-spacing</a>对Chrome和Safari的间隙调整均皆无力，于是只好用<a href="http://css.doyoe.com/properties/text/letter-spacing.htm" class="external" target="_blank">letter-spacing</a>来替代了；</p>
+		<p class="tips">* 所有主流浏览器均可直接使用此方案；</p>
+	</section>
+</article>
+
+<p class="copyright">© Copyright <a href="http://www.doyoe.com/" title="飘雨社区">Doyoe.com</a></p>
+<a id="sources" href="http://blog.doyoe.com/" title="前往 CSS探索之旅">CSS探索之旅</a>
+<!--Google Analytics-->
+<script async="" src="./inline-block元素间间隙产生及去除详解_files/ga.js.下载"></script><script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-3500471-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+    var ga = document.createElement('script'); ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+</body></html>
