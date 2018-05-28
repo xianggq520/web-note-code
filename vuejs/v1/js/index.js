@@ -11,7 +11,7 @@ function SelfVue (data, el, exp) {
     new Watcher(this, exp, function (value) {
         el.innerHTML = value;
     });
-    return this;
+   // return this;
 }
 
 SelfVue.prototype = {
