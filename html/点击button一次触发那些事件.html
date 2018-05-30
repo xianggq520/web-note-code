@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件触发</title>
+</head>
+
+<body>
+
+    <p>button点击触发时间顺序：onmouseover、onmousedown、onmouseup、click, onmousemove为鼠标在button上移动触发，onmouseout为鼠标移出button区域触发</p>
+    
+    
+    <button onclick="console.log(1)" onmousedown="console.log(2)" onmouseup="console.log(3)" 
+        onmousemove="console.log(4)" onmouseout="console.log(5)" onmouseover="console.log(6)"></button>
+     
+</body>
+
+</html>

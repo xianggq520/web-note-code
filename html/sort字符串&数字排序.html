@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>快速排序</title>
+</head>
+
+<body>
+
+    <script>
+
+        var items = [{ name: 'Lily', age: 10 }, { name: 'Hanmeimei', age: 11 }, { name: 'Lilei', age: 12 }, { name: 'Lucy', age: 10 }, { name: 'Michael', age: 11 }]
+
+        Array.prototype.quicksort = function (sorter) {
+            return items.sort(sorter);
+        }
+
+        var sorted = items.quicksort(function (personOne, personTwo) {
+            if (personOne.age != personTwo.age) {
+                return personOne.age - personTwo.age;
+            } else {
+                return personOne.name === personTwo.name ? 0 : personOne.name < personTwo.name ? -1 : 1;
+            }
+        });
+
+        console.log(sorted);
+    </script>
+</body>
+
+</html>
