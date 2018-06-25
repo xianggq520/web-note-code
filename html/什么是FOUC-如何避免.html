@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        什么是FOUC?如何避免?
+
+        Flash Of Unstyled Content：用户定义样式表加载之前浏览器使用默认样式显示文档，
+        用户样式加载渲染之后再从新显示文档，造成页面闪烁。
+        
+        解决方法：把样式表放到文档的head,减少在css文件中使用@import其他样式表，导致串行下载，影响样式表加载效率。
+</body>
+</html>

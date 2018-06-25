@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>CSS实现垂直水平居中-absolute定位</title>
+        <style type="text/css">
+            *{
+                margin: 0;
+                padding: 0;    
+            }
+            .p{
+                /*父元素为除了static以外的定位方式*/
+                position: relative;
+                /*position: absolute;*/
+                /*position: fixed;*/
+                width: 500px;
+                height: 500px;
+                border: 1px solid red;
+            }
+            .c{
+                /*子元素为绝对定位*/
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                /*top、bottom、left和right 均设置为0*/
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                /*margin设置为auto*/
+                margin:auto;
+                border: 1px solid green;    
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="p">
+            <div class="c">
+                子元素
+            </div>
+        </div>
+        
+    </body>
+
+</html>

@@ -25,8 +25,19 @@
         4.margin/padding在竖直方向上无效，水平方向上有效 
         5.width/height属性对非替换行内元素无效，宽度由元素内容决定 
         6.非替换行内元素的行框高由line-height确定，替换行内元素的行框高由height,margin,padding,border决定 
-        7.浮动或绝对定位时会转换为block 
+        7.浮动或绝对定位时会转换为行内block 
         8.vertical-align属性生效
     </p>
+    <div style="width:100px; float: left;">
+        <span>1234567890</span>
+        <span>1234567890</span>
+        <span>1234567890</span>
+        <span>1234567890</span>
+        <span>1234567890</span>
+        <span>1234567890</span>
+        <span style="float: left;">1234567890</span>
+        <span style="float: left;">1234567890</span>
+    </div>
+    <span>saa</span>
 </body>
 </html>
